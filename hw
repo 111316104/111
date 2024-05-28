@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV 文件生成器</title>
+</head>
+<body>
+    <h1>CSV 文件生成器</h1>
+    <button onclick="downloadCSV()">下載 CSV</button>
+
+    <script>
+        function downloadCSV() {
+            // 準備數據
+            const data = [
+                ["姓名", "年齡", "城市"],
+                ["王小明", 28, "北京"],
+                ["李華", 22, "上海"],
+                ["張偉", 34, "廣州"]
+            ];
+
+            // 將數據轉換為CSV格式
+            let csvContent = "data:text/csv;charset=utf-8,";
+            data.forEach(rowArray => {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            // 創建隱藏的下載鏈接
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "data.csv");
+
+            // 將鏈接添加到文檔並觸發點擊事件
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
